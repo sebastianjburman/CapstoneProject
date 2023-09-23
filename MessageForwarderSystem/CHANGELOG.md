@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [versionize](https://github.com/versionize/versionize) for commit guidelines.
 
+<a name="1.1.0"></a>
+## [1.1.0](https://www.github.com/sebastianjburman/No-Kill-Louisville-Message-Forwarder-System/releases/tag/v1.1.0) (2023-09-23)
+
+### Features
+
+* An awesome feature implemented by Li to test versionize ([1b39325](https://www.github.com/sebastianjburman/No-Kill-Louisville-Message-Forwarder-System/commit/1b393258727cc5420b515bc12cbcda8df3c295a8))
+
 <a name="1.0.1"></a>
 ## [1.0.1](https://www.github.com/sebastianjburman/No-Kill-Louisville-Message-Forwarder-System/releases/tag/v1.0.1) (2023-09-23)
 
