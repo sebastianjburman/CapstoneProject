@@ -4,7 +4,7 @@ using MessageForwarderSystem.Models;
 namespace MessageForwarderSystem.Controllers;
 
 /// <summary>
-/// Class <c>TwilioController</c> Controller class responsible for handling incoming SMS messages from Twilio.
+/// Class <c>TwilioController</c> Controller class responsible for handling incoming SMS messages from Twilio....
 /// </summary>
 [ApiController]
 [Route("[controller]")]
