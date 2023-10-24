@@ -38,3 +38,9 @@
   - Program Architecture 
   - .net core web API 
   - Using Twilio for the texting service
+ 
+ ## October 23rd Meeting
+- **Time:** 8:00pm to 8:30pm
+- **Topics:** 
+  - Program Architecture 
+  - Acuity API 
