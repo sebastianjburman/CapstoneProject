@@ -43,4 +43,10 @@
 - **Time:** 8:00pm to 8:30pm
 - **Topics:** 
   - Program Architecture 
-  - Acuity API 
+  - Acuity API
+ 
+ ## November 6th Meeting
+- **Time:** 8:00pm to 8:25pm
+- **Topics:** 
+  - Acuity API Data Processing 
+  - Twilio 
