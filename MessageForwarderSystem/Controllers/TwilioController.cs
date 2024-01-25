@@ -27,7 +27,7 @@ public class TwilioController : ControllerBase
     /// <param name="twilioMessage">An instance of the TwilioMessage class containing message data.</param>
     /// <returns>An HTTP action result indicating the status of the operation.</returns>
     [HttpPost]
-    public ActionResult PostTwilioMessage(TwilioMessage twilioMessage)
+    public ActionResult PostTwilioMessage([FromForm]TwilioMessage twilioMessage)
     {
         _logger.LogInformation(twilioMessage.ToString());
         return Ok();
