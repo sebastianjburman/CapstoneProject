@@ -1,6 +1,9 @@
 ﻿global using MessageForwarderSystem.Services.Models.Base;
 global using MessageForwarderSystem.Services.Models;
 
+global using System.Text.Json;
+
+
 global using Microsoft.Extensions.DependencyInjection;
 
 

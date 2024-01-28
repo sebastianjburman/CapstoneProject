@@ -1,5 +1,4 @@
 ﻿using MessageForwarderSystem.Services.ApiWrapper.Interfaces;
-using System.Text.Json;
 
 namespace MessageForwarderSystem.Services.ApiWrapper.Base;
 
@@ -22,7 +21,13 @@ public abstract class ApiServiceWrapperBase<TEntity> : IApiServiceWrapperBase<TE
 
         using (FileStream fs = File.OpenRead(_filePath))
         {
-            return await JsonSerializer.DeserializeAsync<IList<TEntity>>(fs) ?? new List<TEntity>();
+            var options = new JsonSerializerOptions
+            {
+                PropertyNameCaseInsensitive = true,
+                PropertyNamingPolicy = null
+            };
+
+            return await JsonSerializer.DeserializeAsync<IList<TEntity>>(fs, options) ?? new List<TEntity>();
         }
     }
 
