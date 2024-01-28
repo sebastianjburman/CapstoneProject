@@ -1,0 +1,63 @@
+[
+  {
+
+    "id": 54321,
+    "firstName": "Sebastian",
+    "lastName": "McTest",
+    "phone": "",
+    "email": "bob.mctest@example.com",
+    "date": "June 17, 2013",
+    "time": "10:15am",
+    "endTime": "11:15am",
+    "dateCreated": "July 2, 2013",
+    "canClientCancel": false,
+    "canClientReschedule": false,
+    "labels": [
+      {
+        "id": 3,
+        "name": "Completed",
+        "color": "pink"
+      }
+    ]
+  },
+  {
+    "id": 54322,
+    "firstName": "Li",
+    "lastName": "McTest",
+    "phone": "",
+    "email": "bob.mctest@example.com",
+    "date": "June 17, 2013",
+    "time": "10:15am",
+    "endTime": "11:15am",
+    "dateCreated": "July 2, 2013",
+    "canClientCancel": false,
+    "canClientReschedule": false,
+    "labels": [
+      {
+        "id": 3,
+        "name": "Completed",
+        "color": "pink"
+      }
+    ]
+  },
+  {
+    "id": 54322,
+    "firstName": "Jonathan",
+    "lastName": "McTest",
+    "phone": "",
+    "email": "bob.mctest@example.com",
+    "date": "June 17, 2013",
+    "time": "10:15am",
+    "endTime": "11:15am",
+    "dateCreated": "July 2, 2013",
+    "canClientCancel": false,
+    "canClientReschedule": false,
+    "labels": [
+      {
+        "id": 3,
+        "name": "Completed",
+        "color": "pink"
+      }
+    ]
+  }
+]

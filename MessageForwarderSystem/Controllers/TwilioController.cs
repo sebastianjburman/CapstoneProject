@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using MessageForwarderSystem.Models;
+using MessageForwarderSystem.Services.DataServices.Interfaces;
 
 namespace MessageForwarderSystem.Controllers;
 
@@ -11,14 +12,16 @@ namespace MessageForwarderSystem.Controllers;
 public class TwilioController : ControllerBase
 {
     private readonly ILogger<TwilioController> _logger;
+    private readonly IDataServiceBase<Appointment> _appointment;
 
     /// <summary>
     /// Initializes a new instance of the <see cref="TwilioController"/> class.
     /// </summary>
     /// <param name="logger">The logger instance for logging.</param>
-    public TwilioController(ILogger<TwilioController> logger)
+    public TwilioController(ILogger<TwilioController> logger, IDataServiceBase<Appointment> _appointment)
     {
         _logger = logger;
+        _appointment = _appointment;
     }
     /// <summary>
     /// Method <c>PostTwilioMessage</c>: Twilio SMS webhook endpoint.
@@ -30,6 +33,7 @@ public class TwilioController : ControllerBase
     public ActionResult PostTwilioMessage([FromForm]TwilioMessage twilioMessage)
     {
         _logger.LogInformation(twilioMessage.ToString());
+        _appointment.GetAllAsync();
         return Ok();
     }
 }
