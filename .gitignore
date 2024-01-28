@@ -557,3 +557,8 @@ $RECYCLE.BIN/
 *.lnk
 
 # End of https://www.toptal.com/developers/gitignore/api/csharp,dotnetcore,macos,windows,rider,linux
+/MessageForwarderSystem/MessageForwarderSystem.xml
+/MessageForwarderSystem/MessageForwardSystem.api.xml
+/MessageForwarderSystem/MessageForwardSystem.xml
+/MessageForwarderSystem/Controllers/Values2Controller.cs
+/MessageForwarderSystem/Controllers/ValuesController.cs
