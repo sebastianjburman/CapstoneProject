@@ -14,3 +14,9 @@ global using Microsoft.AspNetCore.Mvc.ApiExplorer;
 
 global using MessageForwarderSystem.Swagger;
 global using MessageForwarderSystem.Swagger.Models;
+
+
+
+global using MessageForwarderSystem.Services.DataServices;
+global using MessageForwarderSystem.Services.Models;
+

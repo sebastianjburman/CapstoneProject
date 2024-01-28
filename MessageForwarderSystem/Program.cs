@@ -25,6 +25,8 @@ builder.Services.AddControllers().AddJsonOptions(options =>
 builder.Services.AddApiVersioning();
 builder.Services.AddAutoLotApiVersionConfiguration(new ApiVersion(1, 0));
 
+builder.Services.AddDataServices();
+
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckleteetsss
 builder.Services.AddEndpointsApiExplorer();
@@ -33,8 +35,6 @@ builder.Services.AddAndConfigureSwagger(
     builder.Configuration,
     Path.Combine(AppContext.BaseDirectory, $"{Assembly.GetExecutingAssembly().GetName().Name}.xml"),
     true);
-
-
 
 var app = builder.Build();
 
