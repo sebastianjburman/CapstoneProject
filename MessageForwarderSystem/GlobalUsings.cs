@@ -34,3 +34,5 @@ global using System.Text.Encodings.Web;
 
 global using MessageForwarderSystem.Security;
 
+global using MessageForwarderSystem.Services.ApiWrapper.Configuration;
+

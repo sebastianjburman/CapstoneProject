@@ -1,13 +1,13 @@
-﻿namespace MessageForwarderSystem.Services.DataServices.Api.Base;
+﻿namespace MessageForwarderSystem.Services.DataServices.Dal.Base;
 
-public abstract class ApiDataServiceBase<TEntity> : IDataServiceBase<TEntity> 
+public abstract class DalDataServiceBase<TEntity> : IDataServiceBase<TEntity>
     where TEntity : BaseModel, new()
 {
-    protected readonly IApiServiceWrapperBase<TEntity> ServiceWrapper;
+    protected readonly IDalServiceWrapperBase<TEntity> ServiceWrapper;
 
-    protected ApiDataServiceBase(IApiServiceWrapperBase<TEntity> serviceWrapperBase)
+    protected DalDataServiceBase(IDalServiceWrapperBase<TEntity> serviceWrapper)
     {
-        ServiceWrapper = serviceWrapperBase;
+        ServiceWrapper = serviceWrapper;
     }
 
     public async Task<IEnumerable<TEntity>> GetAllAsync()

@@ -23,10 +23,12 @@ builder.Services.AddControllers().AddJsonOptions(options =>
         "End point is invalid";
 });
 
+builder.Services.ConfigureApiServiceWrapper(builder.Configuration);
+
 builder.Services.AddApiVersioning();
 builder.Services.AddAutoLotApiVersionConfiguration(new ApiVersion(1, 0));
 
-builder.Services.AddDataServices();
+builder.Services.AddDataServices(builder.Configuration);
 
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckleteetsss

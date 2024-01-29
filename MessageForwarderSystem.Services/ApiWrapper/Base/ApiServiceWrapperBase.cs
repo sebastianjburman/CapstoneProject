@@ -5,95 +5,88 @@ namespace MessageForwarderSystem.Services.ApiWrapper.Base;
 public abstract class ApiServiceWrapperBase<TEntity> : IApiServiceWrapperBase<TEntity> 
     where TEntity : BaseModel, new()
 {
-    private readonly string _filePath;
+    protected readonly HttpClient Client;
+    private readonly string _endPoint;
+    protected readonly ApiServiceSettings ApiSettings;
+    protected readonly string ApiVersion;
 
-    protected ApiServiceWrapperBase(IConfiguration configuration)
+    protected ApiServiceWrapperBase(
+        HttpClient client, IOptionsMonitor<ApiServiceSettings> apiSettingsMonitor, string
+            endPoint)
     {
-        _filePath = AppDomain.CurrentDomain.BaseDirectory + configuration["DataPath"];
+        Client = client;
+        _endPoint = endPoint;
+        ApiSettings = apiSettingsMonitor.CurrentValue;
+        ApiVersion = ApiSettings.ApiVersion;
+
+        Client.BaseAddress = new Uri(ApiSettings.Uri);
+        client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+        var authToken = Convert.ToBase64String(Encoding.UTF8.GetBytes($"{ApiSettings.UserName}:{ApiSettings.Password}"));
+        client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("basic",authToken);
     }
 
-    private async Task<IList<TEntity>> ReadFromFileAsync()
+    internal async Task<HttpResponseMessage> PostAsJsonAsync(string uri, string json)
     {
-        if (!File.Exists(_filePath))
-        {
-            return new List<TEntity>();
-        }
-
-        using (FileStream fs = File.OpenRead(_filePath))
-        {
-            var options = new JsonSerializerOptions
-            {
-                PropertyNameCaseInsensitive = true,
-                PropertyNamingPolicy = null
-            };
-
-            return await JsonSerializer.DeserializeAsync<IList<TEntity>>(fs, options) ?? new List<TEntity>();
-        }
+        return await Client.PostAsync(uri, new StringContent(json, Encoding.UTF8, "application/json"));
     }
 
-    private async Task WriteToFileAsync(IList<TEntity> entities)
+    internal async Task<HttpResponseMessage> PutAsJsonAsync(string uri, string json)
     {
-        using (FileStream fs = File.Create(_filePath))
+        return await Client.PutAsync(uri, new StringContent(json, Encoding.UTF8, "application/json"));
+    }
+
+
+    internal async Task<HttpResponseMessage> DeleteAsJsonAsync(string uri, string json)
+    {
+        HttpRequestMessage request = new HttpRequestMessage
         {
-            await JsonSerializer.SerializeAsync(fs, entities);
-        }
+            Content = new StringContent(json, Encoding.UTF8, "application/json"),
+            Method = HttpMethod.Delete,
+            RequestUri = new Uri(uri)
+        };
+        return await Client.SendAsync(request);
     }
 
     public async Task<IList<TEntity>> GetAllEntitiesAsync()
     {
-        return await ReadFromFileAsync();
+        var response = await Client.GetAsync($"{ApiSettings.Uri}{_endPoint}?v={ApiVersion}");
+        response.EnsureSuccessStatusCode();
+        var result = await response.Content.ReadFromJsonAsync<IList<TEntity>>();
+        return result;
     }
 
     public async Task<TEntity> GetEntityAsync(int id)
     {
-        var entities = await ReadFromFileAsync();
-        return entities.FirstOrDefault(e => e.Id == id);
+        var response = await Client.GetAsync($"{ApiSettings.Uri}{_endPoint}/{id}?v={ApiVersion}");
+        response.EnsureSuccessStatusCode();
+        var result = await response.Content.ReadFromJsonAsync<TEntity>();
+        return result;
     }
 
     public async Task<TEntity> AddEntityAsync(TEntity entity)
     {
-        var entities = await ReadFromFileAsync();
-        entities.Add(entity);
-        await WriteToFileAsync(entities);
-        return entity;
+        var response = await PostAsJsonAsync($"{ApiSettings.Uri}{_endPoint}?v={ApiVersion}", JsonSerializer.Serialize(entity));
+        if (response == null)
+        {
+            throw new Exception("Unable to communicate with the service");
+        }
+        var location = response.Headers?.Location?.OriginalString;
+        return await response.Content.ReadFromJsonAsync<TEntity>() ?? await
+            GetEntityAsync(entity.Id);
     }
 
     public async Task<TEntity> UpdateEntityAsync(TEntity entity)
     {
-        try
-        {
-            var entities = await ReadFromFileAsync();
-            // Use LINQ to find the index of the entity with the matching Id
-            var index = entities.Select((e, i) => new { Entity = e, Index = i })
-                .FirstOrDefault(ei => ei.Entity.Id == entity.Id)?.Index;
-
-            if (index.HasValue && index != -1)
-            {
-                entities[index.Value] = entity;
-                await WriteToFileAsync(entities.ToList()); // Convert back to List if needed by WriteToFileAsync
-            }
-            else
-            {
-                // Handle the case where the entity is not found, if necessary
-                throw new KeyNotFoundException($"Entity with Id {entity.Id} not found.");
-            }
-            return entity;
-        }
-        catch (Exception ex)
-        {
-            // Log the exception, throw it, or handle it as needed
-            throw new Exception("An error occurred while updating the entity.", ex);
-        }
+        var response = await PutAsJsonAsync($"{ApiSettings.Uri}{_endPoint}/{entity.Id}?v={ApiVersion}",JsonSerializer.Serialize(entity));
+        response.EnsureSuccessStatusCode();
+        return await response.Content.ReadFromJsonAsync<TEntity>() ?? await GetEntityAsync(entity.Id);
     }
 
     public async Task DeleteEntityAsync(TEntity entity)
     {
-        var entities = await ReadFromFileAsync();
-        var itemToRemove = entities.FirstOrDefault(e => e.Id == entity.Id);
-        if (itemToRemove != null)
-        {
-            entities.Remove(itemToRemove);
-            await WriteToFileAsync(entities);
-        }
+        var response = await DeleteAsJsonAsync($"{ApiSettings.Uri}{_endPoint}/{entity.Id}?v={ApiVersion}", JsonSerializer.Serialize(entity));
+        response.EnsureSuccessStatusCode();
     }
+
+
 }
