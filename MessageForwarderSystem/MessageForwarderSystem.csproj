@@ -48,4 +48,8 @@
     <ProjectReference Include="..\MessageForwarderSystem.Services\MessageForwarderSystem.Services.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Security\" />
+  </ItemGroup>
+
 </Project>
