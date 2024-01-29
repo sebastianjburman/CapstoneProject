@@ -7,7 +7,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MessageForwarderSystem", "M
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MessageForwarderSystemTests", "MessageForwarderSystemTests\MessageForwarderSystemTests.csproj", "{432F08B2-129E-4039-95B3-73946B62254C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MessageForwarderSystem.Services", "MessageForwarderSystem.Services\MessageForwarderSystem.Services.csproj", "{859A6CED-975E-43C3-A010-C8E2A449A537}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MessageForwarderSystem.Services", "MessageForwarderSystem.Services\MessageForwarderSystem.Services.csproj", "{859A6CED-975E-43C3-A010-C8E2A449A537}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

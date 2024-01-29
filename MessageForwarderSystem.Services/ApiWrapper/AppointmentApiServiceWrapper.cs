@@ -6,7 +6,7 @@ namespace MessageForwarderSystem.Services.ApiWrapper;
 
 public class AppointmentApiServiceWrapper : ApiServiceWrapperBase<Appointment>, IAppointmentApiServiceWrapper
 {
-    public AppointmentApiServiceWrapper() : base()
+    public AppointmentApiServiceWrapper(IConfiguration configuration) : base(configuration)
     {
     }
 }

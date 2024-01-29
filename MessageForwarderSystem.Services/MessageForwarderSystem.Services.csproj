@@ -18,6 +18,8 @@
 
   <ItemGroup>
     <Folder Include="ApiWrapper\Base\" />
+    <Folder Include="DalWrapper\Interfaces\" />
+    <Folder Include="DalWrapper\Base\" />
     <Folder Include="DataServices\Api\Base\" />
     <Folder Include="Models\Base\" />
   </ItemGroup>

@@ -7,9 +7,9 @@ public abstract class ApiServiceWrapperBase<TEntity> : IApiServiceWrapperBase<TE
 {
     private readonly string _filePath;
 
-    protected ApiServiceWrapperBase()
+    protected ApiServiceWrapperBase(IConfiguration configuration)
     {
-        _filePath = AppDomain.CurrentDomain.BaseDirectory + "Data.json";
+        _filePath = AppDomain.CurrentDomain.BaseDirectory + configuration["DataPath"];
     }
 
     private async Task<IList<TEntity>> ReadFromFileAsync()
