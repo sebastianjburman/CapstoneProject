@@ -7,7 +7,9 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Microsoft.Extensions.Configuration" Version="7.0.0" />
     <PackageReference Include="Microsoft.Extensions.Hosting.Abstractions" Version="7.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Http" Version="7.0.0" />
     <PackageReference Include="Microsoft.Extensions.Options" Version="7.0.0" />
     <PackageReference Include="Microsoft.VisualStudio.Threading.Analyzers" Version="17.8.14">
       <PrivateAssets>all</PrivateAssets>
@@ -18,7 +20,10 @@
 
   <ItemGroup>
     <Folder Include="ApiWrapper\Base\" />
+    <Folder Include="ApiWrapper\Models\" />
+    <Folder Include="ApiWrapper\Configuration\" />
     <Folder Include="DataServices\Api\Base\" />
+    <Folder Include="DataServices\Dal\Base\" />
     <Folder Include="Models\Base\" />
   </ItemGroup>
 

@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
+using NuGet.Configuration;
 using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -22,10 +23,12 @@ builder.Services.AddControllers().AddJsonOptions(options =>
         "End point is invalid";
 });
 
+builder.Services.ConfigureApiServiceWrapper(builder.Configuration);
+
 builder.Services.AddApiVersioning();
 builder.Services.AddAutoLotApiVersionConfiguration(new ApiVersion(1, 0));
 
-builder.Services.AddDataServices();
+builder.Services.AddDataServices(builder.Configuration);
 
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckleteetsss
@@ -35,6 +38,24 @@ builder.Services.AddAndConfigureSwagger(
     builder.Configuration,
     Path.Combine(AppContext.BaseDirectory, $"{Assembly.GetExecutingAssembly().GetName().Name}.xml"),
     true);
+
+// cross-origin request config
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowAll", builder =>
+    {
+        builder
+            .AllowAnyHeader()
+            .AllowAnyMethod()
+            .AllowAnyOrigin();
+    });
+});
+
+// Get user and password to option
+builder.Services.Configure<SecuritySettings>(builder.Configuration.GetSection(nameof(SecuritySettings)));
+
+builder.Services.AddAuthentication("BasicAuthentication")
+    .AddScheme<AuthenticationSchemeOptions, BasicAuthenticationHandler>("BasicAuthentication", null);
 
 var app = builder.Build();
 
@@ -57,6 +78,9 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+//Add CORS Policy
+app.UseCors("AllowAll");
 
 app.UseAuthorization();
 

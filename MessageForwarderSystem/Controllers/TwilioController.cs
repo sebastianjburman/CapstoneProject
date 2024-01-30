@@ -1,6 +1,3 @@
-using Microsoft.AspNetCore.Mvc;
-using MessageForwarderSystem.Models;
-using MessageForwarderSystem.Services.DataServices.Interfaces;
 
 namespace MessageForwarderSystem.Controllers;
 
@@ -9,19 +6,15 @@ namespace MessageForwarderSystem.Controllers;
 /// </summary>
 [ApiController]
 [Route("[controller]")]
-public class TwilioController : ControllerBase
+public class TwilioController : BaseCrudController<Appointment, TwilioController>
 {
-    private readonly ILogger<TwilioController> _logger;
-    private readonly IDataServiceBase<Appointment> _appointment;
 
     /// <summary>
     /// Initializes a new instance of the <see cref="TwilioController"/> class.
     /// </summary>
     /// <param name="logger">The logger instance for logging.</param>
-    public TwilioController(ILogger<TwilioController> logger, IDataServiceBase<Appointment> _appointment)
+    public TwilioController(ILogger<TwilioController> logger, IAppointmentDataService appointment) : base (logger, appointment)
     {
-        _logger = logger;
-        _appointment = _appointment;
     }
     /// <summary>
     /// Method <c>PostTwilioMessage</c>: Twilio SMS webhook endpoint.
@@ -29,11 +22,12 @@ public class TwilioController : ControllerBase
     /// </summary>
     /// <param name="twilioMessage">An instance of the TwilioMessage class containing message data.</param>
     /// <returns>An HTTP action result indicating the status of the operation.</returns>
-    [HttpPost]
-    public ActionResult PostTwilioMessage([FromForm]TwilioMessage twilioMessage)
+    [HttpPost("incomeMessage")]
+    [ApiVersion("1.0")]
+    public ActionResult PostTwilioMessage([FromBody]TwilioMessage twilioMessage)
     {
-        _logger.LogInformation(twilioMessage.ToString());
-        _appointment.GetAllAsync();
+        Logger.LogInformation(twilioMessage.ToString());
         return Ok();
     }
+
 }

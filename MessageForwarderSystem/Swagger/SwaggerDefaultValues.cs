@@ -1,6 +1,4 @@
-﻿using Microsoft.AspNetCore.Mvc.ApiExplorer;
-
-namespace MessageForwarderSystem.Swagger;
+﻿namespace MessageForwarderSystem.Swagger;
 
 /// <summary>
 /// Represents the Swagger/Swashbuckle operation filter used to document the implicit API version parameter.
