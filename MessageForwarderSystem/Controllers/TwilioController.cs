@@ -23,7 +23,7 @@ public class TwilioController : BaseCrudController<Appointment, TwilioController
     /// <param name="twilioMessage">An instance of the TwilioMessage class containing message data.</param>
     /// <returns>An HTTP action result indicating the status of the operation.</returns>
     [HttpPost("incomeMessage")]
-    [ApiVersion("1.0")]
+    [ApiVersion("2.0")]
     public ActionResult PostTwilioMessage([FromBody]TwilioMessage twilioMessage)
     {
         Logger.LogInformation(twilioMessage.ToString());
