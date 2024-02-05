@@ -9,7 +9,7 @@ public abstract class BaseCrudController<TEntity, TController> : ControllerBase
     where TEntity : BaseModel, new()
     where TController : class
 {
-    protected readonly IDataServiceBase<TEntity> DataServiceBase;
+    private readonly IDataServiceBase<TEntity> DataServiceBase;
     protected ILogger<TController> Logger;
 
     protected BaseCrudController(ILogger<TController> logger,IDataServiceBase<TEntity> dataServiceBase)

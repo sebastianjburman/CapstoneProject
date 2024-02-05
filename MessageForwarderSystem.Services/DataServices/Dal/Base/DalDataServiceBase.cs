@@ -3,7 +3,7 @@
 public abstract class DalDataServiceBase<TEntity> : IDataServiceBase<TEntity>
     where TEntity : BaseModel, new()
 {
-    protected readonly IDalServiceWrapperBase<TEntity> ServiceWrapper;
+    private readonly IDalServiceWrapperBase<TEntity> ServiceWrapper;
 
     protected DalDataServiceBase(IDalServiceWrapperBase<TEntity> serviceWrapper)
     {
