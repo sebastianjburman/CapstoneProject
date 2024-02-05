@@ -27,9 +27,9 @@ public abstract class BaseCrudController<TEntity, TController> : ControllerBase
     [SwaggerResponse(401, "Unauthorized access attempted")]
     [ApiVersion("1.0")]
     [HttpGet]
-    public ActionResult<IEnumerable<TEntity>> GetAll()
+    public async Task<ActionResult<IEnumerable<TEntity>>> GetAll()
     {
-        return Ok(DataServiceBase.GetAllAsync());
+        return Ok(await DataServiceBase.GetAllAsync());
     }
 
 
@@ -44,9 +44,9 @@ public abstract class BaseCrudController<TEntity, TController> : ControllerBase
     [SwaggerResponse(401, "Unauthorized access attempted")]
     [ApiVersion("1.0")]
     [HttpGet("{id}")]
-    public ActionResult<TEntity> GetOne(int id)
+    public async Task<ActionResult<TEntity>> GetOne(int id)
     {
-        var entity = DataServiceBase.FindAsync(id).Result;
+        var entity = await DataServiceBase.FindAsync(id);
 
         if (entity == null)
         {
@@ -65,7 +65,7 @@ public abstract class BaseCrudController<TEntity, TController> : ControllerBase
     [SwaggerResponse(401, "Unauthorized access attempted")]
     [HttpPut("{id}")]
     [ApiVersion("1.0")]
-    public IActionResult UpdateOne(int id, [FromBody]TEntity entity)
+    public async Task<IActionResult> UpdateOne(int id, [FromBody]TEntity entity)
     {
         if (id != entity.Id)
         {
@@ -79,7 +79,7 @@ public abstract class BaseCrudController<TEntity, TController> : ControllerBase
 
         try
         {
-            DataServiceBase.UpdateAsync(entity);
+            await DataServiceBase.UpdateAsync(entity);
         }
         catch (Exception ex)
         {
@@ -99,7 +99,7 @@ public abstract class BaseCrudController<TEntity, TController> : ControllerBase
     [SwaggerResponse(401, "Unauthorized access attempted")]
     [HttpPost]
     [ApiVersion("1.0")]
-    public ActionResult<TEntity> AddOne(TEntity entity)
+    public async Task<ActionResult<TEntity>> AddOne(TEntity entity)
     {
         if (!ModelState.IsValid)
         {
@@ -108,7 +108,7 @@ public abstract class BaseCrudController<TEntity, TController> : ControllerBase
 
         try
         {
-            DataServiceBase.AddAsync(entity);
+            await DataServiceBase.AddAsync(entity);
         }
         catch (Exception ex)
         {
@@ -127,7 +127,7 @@ public abstract class BaseCrudController<TEntity, TController> : ControllerBase
     [SwaggerResponse(401, "Unauthorized access attempted")]
     [HttpDelete("{id}")]
     [ApiVersion("1.0")]
-    public ActionResult<TEntity> DeleteOne(int id, TEntity entity)
+    public async Task<ActionResult<TEntity>> DeleteOne(int id, TEntity entity)
     {
         if (id != entity.Id)
         {
@@ -136,14 +136,13 @@ public abstract class BaseCrudController<TEntity, TController> : ControllerBase
 
         try
         {
-            DataServiceBase.DeleteAsync(entity);
+            await DataServiceBase.DeleteAsync(entity);
         }
         catch (Exception ex)
         {
             //Should handle more gracefully
             return new BadRequestObjectResult(ex.GetBaseException()?.Message);
         }
-
         return Ok();
     }
 }
