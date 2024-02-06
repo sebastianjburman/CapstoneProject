@@ -87,6 +87,4 @@ public abstract class ApiServiceWrapperBase<TEntity> : IApiServiceWrapperBase<TE
         var response = await DeleteAsJsonAsync($"{ApiSettings.Uri}{_endPoint}/{entity.Id}?v={ApiVersion}", JsonSerializer.Serialize(entity));
         response.EnsureSuccessStatusCode();
     }
-
-
 }

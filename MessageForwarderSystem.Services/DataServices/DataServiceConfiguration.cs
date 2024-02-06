@@ -20,7 +20,7 @@ public static class DataServiceConfiguration
             services.AddScoped<IAppointmentDalServiceWrapper, AppointmentDalServiceWrapper>();
             // we are not using client for data.json
             //services.AddScoped<IClientDataService, ClientDalDataService>();
-            services.AddScoped<IClientDalServiceWrapper, ClientDalServiceWrapper>();
+            //services.AddScoped<IClientDalServiceWrapper, ClientDalServiceWrapper>();
         }
         return services;
     }
