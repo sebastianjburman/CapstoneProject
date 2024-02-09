@@ -8,15 +8,12 @@ namespace MessageForwarderSystem.Controllers;
 [Route("[controller]")]
 public class TwilioController : BaseCrudController<Appointment, TwilioController>
 {
-    private readonly IAppointmentDataService _appointmentDataService;
-
     /// <summary>
     /// Initializes a new instance of the <see cref="TwilioController"/> class.
     /// </summary>
     /// <param name="logger">The logger instance for logging.</param>
     public TwilioController(ILogger<TwilioController> logger, IAppointmentDataService appointment) : base (logger, appointment)
     {
-        this._appointmentDataService = appointment;
     }
     /// <summary>
     /// Method <c>PostTwilioMessage</c>: Twilio SMS webhook endpoint.
@@ -56,7 +53,7 @@ public class TwilioController : BaseCrudController<Appointment, TwilioController
 
         try
         {
-            await _appointmentDataService.CheckInToAppointment(twilioMessage.From, DateTime.Today);
+            await ((IAppointmentDataService)DataServiceBase).CheckInToAppointment(twilioMessage.From, DateTime.Today);
         }
         catch (Exception ex)
         {
