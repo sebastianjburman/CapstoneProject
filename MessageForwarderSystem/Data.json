@@ -4,7 +4,7 @@
     "id": 54321,
     "firstName": "Sebastian",
     "lastName": "McTest",
-    "phone": "",
+    "phone": "248-915-0522",
     "email": "bob.mctest@example.com",
     "date": "2013-07-02",
     "time": "10:15am",
@@ -16,7 +16,7 @@
       {
         "id": 3,
         "name": "Completed",
-        "color": "pink"
+        "color": "green"
       }
     ]
   },
@@ -24,7 +24,7 @@
     "id": 54322,
     "firstName": "Li",
     "lastName": "McTest",
-    "phone": "",
+    "phone": "502-287-3385",
     "email": "bob.mctest@example.com",
     "date": "2013-07-02",
     "time": "10:15am",
@@ -35,18 +35,18 @@
     "labels": [
       {
         "id": 3,
-        "name": "Completed",
-        "color": "pink"
+        "name": "Appointment Created",
+        "color": "blue"
       }
     ]
   },
   {
-    "id": 54322,
+    "id": 54323,
     "firstName": "Jonathan",
     "lastName": "McTest",
-    "phone": "",
+    "phone": "502-654-0490",
     "email": "bob.mctest@example.com",
-    "date": "2013-07-02",
+    "date": "2024-02-04",
     "time": "10:15am",
     "endTime": "11:15am",
     "dateCreated": "2013-07-02",
@@ -55,8 +55,8 @@
     "labels": [
       {
         "id": 3,
-        "name": "Completed",
-        "color": "pink"
+        "name": "Appointment Created",
+        "color": "blue"
       }
     ]
   }

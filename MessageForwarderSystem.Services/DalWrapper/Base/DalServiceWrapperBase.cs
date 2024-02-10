@@ -14,7 +14,7 @@ public class DalServiceWrapperBase<TEntity> : IDalServiceWrapperBase<TEntity>
         _filePath = files[0];
     }
 
-    private async Task<IList<TEntity>> ReadFromFileAsync()
+    protected async Task<IList<TEntity>> ReadFromFileAsync()
     {
         if (!File.Exists(_filePath))
         {
