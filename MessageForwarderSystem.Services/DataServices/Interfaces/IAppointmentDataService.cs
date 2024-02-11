@@ -2,5 +2,5 @@
 
 public interface IAppointmentDataService : IDataServiceBase<Appointment>
 {
-    Task CheckInToAppointment(string phoneNumber, DateTime appointmentDate);
+    Task<Appointment> CheckInToAppointment(string phoneNumber, DateTime appointmentDate);
 }

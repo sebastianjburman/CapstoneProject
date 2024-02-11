@@ -2,5 +2,5 @@
 
 public interface IAppointmentDalServiceWrapper : IDalServiceWrapperBase<Appointment>
 {
-    Task CheckInToAppointment(string phoneNumber, DateTime appointmentDate);
+    Task<Appointment> CheckInToAppointmentAsync(string phoneNumber, DateTime appointmentDate);
 }

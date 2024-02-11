@@ -15,19 +15,6 @@ public class TwilioController : BaseCrudController<Appointment, TwilioController
     public TwilioController(ILogger<TwilioController> logger, IAppointmentDataService appointment) : base (logger, appointment)
     {
     }
-    /// <summary>
-    /// Method <c>PostTwilioMessage</c>: Twilio SMS webhook endpoint.
-    /// This method is called by Twilio when a message is sent to the Twilio number.
-    /// </summary>
-    /// <param name="twilioMessage">An instance of the TwilioMessage class containing message data.</param>
-    /// <returns>An HTTP action result indicating the status of the operation.</returns>
-    [HttpPost("Messages")]
-    [ApiVersion("2.0")]
-    public ActionResult PostTwilioMessage([FromBody]TwilioMessage twilioMessage)
-    {
-        Logger.LogInformation(twilioMessage.ToString());
-        return Ok();
-    }
 
     /// <summary>
     /// Method <c>TwilioCheckIntoAppointment</c>: Twilio SMS webhook check in endpoint
@@ -44,7 +31,7 @@ public class TwilioController : BaseCrudController<Appointment, TwilioController
     [SwaggerResponse(401, "Unauthorized access attempted")]
     [HttpPost("Appointments")]
     [ApiVersion("2.0")]
-    public async Task<ActionResult> TwilioCheckIntoAppointment([FromBody]TwilioMessage twilioMessage)
+    public async Task<ActionResult> TwilioCheckIntoAppointmentAsync([FromBody]TwilioMessage twilioMessage)
     {
         if (!ModelState.IsValid)
         {
@@ -53,14 +40,16 @@ public class TwilioController : BaseCrudController<Appointment, TwilioController
 
         try
         {
-            await ((IAppointmentDataService)DataServiceBase).CheckInToAppointment(twilioMessage.From, DateTime.Today);
+            var entities =
+                await ((IAppointmentDataService)DataServiceBase).CheckInToAppointment(twilioMessage.From,
+                    DateTime.Today.Date); 
+            return Ok(entities);
         }
         catch (Exception ex)
         {
             Logger.LogError($"There was an error checking in to appointment. {ex}");
             return BadRequest(ex.Message);
         }
-        return Ok();
     }
 
 }
