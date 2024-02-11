@@ -41,7 +41,7 @@ public class TwilioController : BaseCrudController<Appointment, TwilioController
         try
         {
             var entities =
-                await ((IAppointmentDataService)DataServiceBase).CheckInToAppointment(twilioMessage.From,
+                await ((IAppointmentDataService)DataServiceBase).CheckInToAppointmentAsync(twilioMessage.From,
                     DateTime.Today.Date); 
             return Ok(entities);
         }

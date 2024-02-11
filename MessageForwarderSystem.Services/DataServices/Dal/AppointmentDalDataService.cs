@@ -7,7 +7,7 @@ public class AppointmentDalDataService : DalDataServiceBase<Appointment>, IAppoi
     {
     }
 
-    public async Task<Appointment> CheckInToAppointment(string phoneNumber, DateTime appointmentDate)
+    public async Task<Appointment> CheckInToAppointmentAsync(string phoneNumber, DateTime appointmentDate)
     {
         return await((IAppointmentDalServiceWrapper)ServiceWrapper).CheckInToAppointmentAsync(phoneNumber, appointmentDate);
     }
