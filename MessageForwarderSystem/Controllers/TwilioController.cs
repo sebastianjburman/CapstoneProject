@@ -21,7 +21,7 @@ public class TwilioController : BaseCrudController<Appointment, TwilioController
     /// </summary>
     /// <param name="twilioMessage">An instance of the TwilioMessage class containing message data.</param>
     /// <returns>An HTTP action result indicating the status of the operation.</returns>
-    [HttpPost("incomeMessage")]
+    [HttpPost("Messages")]
     [ApiVersion("2.0")]
     public ActionResult PostTwilioMessage([FromBody]TwilioMessage twilioMessage)
     {
@@ -42,7 +42,7 @@ public class TwilioController : BaseCrudController<Appointment, TwilioController
     [SwaggerResponse(200, "The execution was successful")]
     [SwaggerResponse(400, "The request was invalid")]
     [SwaggerResponse(401, "Unauthorized access attempted")]
-    [HttpPost("checkIn")]
+    [HttpPost("Appointments")]
     [ApiVersion("2.0")]
     public async Task<ActionResult> TwilioCheckIntoAppointment([FromBody]TwilioMessage twilioMessage)
     {
