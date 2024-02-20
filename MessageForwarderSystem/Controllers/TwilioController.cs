@@ -51,5 +51,10 @@ public class TwilioController : BaseCrudController<Appointment, TwilioController
             return BadRequest(ex.Message);
         }
     }
-
+    [HttpPost("health")]
+    [ApiVersion("2.0")]
+    public async Task<ActionResult> Health()
+    {
+        return Ok("Working");
+    }
 }
