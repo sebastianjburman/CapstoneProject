@@ -16,6 +16,7 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
     <PackageReference Include="System.Text.Json" Version="7.0.0" />
+    <PackageReference Include="Twilio" Version="6.18.0" />
   </ItemGroup>
 
   <ItemGroup>

@@ -1,5 +1,6 @@
 ﻿
 
+using MessageForwarderSystem.Services.DataServices.Messaging;
 namespace MessageForwarderSystem.Services.DataServices;
 
 public static class DataServiceConfiguration
@@ -22,6 +23,11 @@ public static class DataServiceConfiguration
             //services.AddScoped<IClientDataService, ClientDalDataService>();
             //services.AddScoped<IClientDalServiceWrapper, ClientDalServiceWrapper>();
         }
+
+        //Messaging Service
+        services.AddScoped<IMessagingService,TwilioMessagingService>();
+        
+
         return services;
     }
 }

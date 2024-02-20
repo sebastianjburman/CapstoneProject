@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using NuGet.Configuration;
 using System.Text.Json.Serialization;
+using MessageForwarderSystem.Services.DataServices.Messaging.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -50,6 +51,8 @@ builder.Services.AddCors(options =>
             .AllowAnyOrigin();
     });
 });
+//Set Twilio service settings from appsettings
+builder.Services.Configure<TwilioMessagingServiceSettings>(builder.Configuration.GetSection(nameof(TwilioMessagingServiceSettings)));
 
 // Get user and password to option
 builder.Services.Configure<SecuritySettings>(builder.Configuration.GetSection(nameof(SecuritySettings)));
