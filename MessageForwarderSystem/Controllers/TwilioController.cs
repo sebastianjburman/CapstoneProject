@@ -31,7 +31,7 @@ public class TwilioController : BaseCrudController<Appointment, TwilioController
     [SwaggerResponse(401, "Unauthorized access attempted")]
     [HttpPost("Appointments")]
     [ApiVersion("2.0")]
-    public async Task<ActionResult> TwilioCheckIntoAppointmentAsync([FromBody]TwilioMessage twilioMessage)
+    public async Task<ActionResult> TwilioCheckIntoAppointmentAsync([FromHeader]TwilioMessage twilioMessage)
     {
         if (!ModelState.IsValid)
         {
