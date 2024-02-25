@@ -10,8 +10,7 @@ public class DalServiceWrapperBase<TEntity> : IDalServiceWrapperBase<TEntity>
     protected DalServiceWrapperBase(IConfiguration config)
     {
         var basePath = Directory.GetCurrentDirectory();
-        var files = Directory.GetFiles(basePath, config["DataPath"]??"Data.json", SearchOption.TopDirectoryOnly);
-        _filePath = files[0];
+        _filePath = Path.Combine(basePath, config["DataPath"]??"Data.json");
     }
 
     protected async Task<IList<TEntity>> ReadFromFileAsync()
