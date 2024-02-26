@@ -1,4 +1,6 @@
 
+using MessageForwarderSystem.Models;
+
 namespace MessageForwarderSystem.Controllers;
 
 /// <summary>
@@ -52,4 +54,33 @@ public class TwilioController : BaseCrudController<Appointment, TwilioController
         }
     }
 
+    [HttpPost]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [SwaggerOperation(Summary = "Check into an appointment via Twilio message")]
+    [SwaggerResponse(200, "Successfully checked in")]
+    [SwaggerResponse(400, "Bad Request")]
+    [ApiVersion("2.0")]
+    public async Task<ActionResult> TwilioCheckIntoAppointmentAsync(
+        [FromHeader(Name = "From")] string fromPhoneNumber)
+    {
+        // Your existing code here...
+        if (!ModelState.IsValid)
+        {
+            return ValidationProblem(ModelState);
+        }
+
+        try
+        {
+            var entities =
+                await ((IAppointmentDataService)DataServiceBase).CheckInToAppointmentAsync(fromPhoneNumber,
+                    DateTime.Today.Date);
+            return Ok(entities);
+        }
+        catch (Exception ex)
+        {
+            Logger.LogError($"There was an error checking in to appointment. {ex}");
+            return BadRequest(ex.Message);
+        }
+    }
 }

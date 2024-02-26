@@ -62,20 +62,20 @@ var app = builder.Build();
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
-    app.UseSwagger();
-    app.UseSwaggerUI(
-        options =>
-        {
-            using var scope = app.Services.CreateScope();
-            var versionProvider = scope.ServiceProvider.GetRequiredService<IApiVersionDescriptionProvider>();
-            // build a swagger endpoint for each discovered API version
-            foreach (var description in versionProvider.ApiVersionDescriptions)
-            {
-                options.SwaggerEndpoint($"/swagger/{description.GroupName}/swagger.json",
-                    description.GroupName.ToUpperInvariant());
-            }
-        });
 }
+app.UseSwagger();
+app.UseSwaggerUI(
+    options =>
+    {
+        using var scope = app.Services.CreateScope();
+        var versionProvider = scope.ServiceProvider.GetRequiredService<IApiVersionDescriptionProvider>();
+        // build a swagger endpoint for each discovered API version
+        foreach (var description in versionProvider.ApiVersionDescriptions)
+        {
+            options.SwaggerEndpoint($"/swagger/{description.GroupName}/swagger.json",
+                description.GroupName.ToUpperInvariant());
+        }
+    });
 
 app.UseHttpsRedirection();
 
