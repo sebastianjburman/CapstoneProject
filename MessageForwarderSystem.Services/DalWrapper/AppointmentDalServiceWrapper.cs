@@ -9,7 +9,8 @@ public class AppointmentDalServiceWrapper : DalServiceWrapperBase<Appointment>, 
     private async Task<Appointment> GetAppointmentTodayByPhoneNumberAsync(string phoneNumber, DateTime appointmentDate)
     {
         IList<Appointment> appointments = await ReadFromFileAsync();
-        return appointments.FirstOrDefault(a => a.Date.Date == appointmentDate.Date.Date && a.Phone.Equals(phoneNumber));
+        //return appointments.FirstOrDefault(a => a.Date.Date == appointmentDate.Date.Date && a.Phone.Equals(phoneNumber));
+        return appointments.FirstOrDefault(a => a.Phone.Equals(phoneNumber));
     }
 
     public async Task<Appointment> CheckInToAppointmentAsync(string phoneNumber, DateTime appointmentDate)
